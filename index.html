@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Имя Фамилия — Книжный дизайн</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --muted: #888880;
+      --faint: #c8c6c0;
+      --bg: #f8f7f4;
+      --white: #ffffff;
+      --serif: 'EB Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --gap: clamp(16px, 3vw, 28px);
+      --page: clamp(20px, 6vw, 80px);
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 28px var(--page) 28px;
+      border-bottom: 0.5px solid var(--faint);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-size: clamp(15px, 2vw, 17px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(20px, 3vw, 36px);
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); }
+
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HOME ── */
+    #home {
+      padding: clamp(32px, 5vw, 60px) var(--page) 80px;
+    }
+
+    .home-intro {
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+
+    .home-intro p {
+      font-family: var(--serif);
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.65;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 440px) {
+      .grid { grid-template-columns: 1fr; max-width: 280px; }
+    }
+
+    .book-card {
+      cursor: pointer;
+    }
+
+    .book-cover {
+      background: var(--white);
+      border: 0.5px solid var(--faint);
+      border-radius: var(--radius);
+      aspect-ratio: 2 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 11px;
+      transition: border-color 0.2s;
+    }
+
+    .book-card:hover .book-cover {
+      border-color: var(--muted);
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .book-card:hover .book-cover img { opacity: 0.88; }
+
+    .cover-placeholder {
+      width: 58%;
+      aspect-ratio: 2 / 3;
+      border-radius: 2px;
+    }
+
+    .book-card-title {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .book-card-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── PROJECT PAGE ── */
+    #project {
+      padding: clamp(24px, 4vw, 48px) var(--page) 80px;
+    }
+
+    .back {
+      display: inline-block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .back:hover { color: var(--ink); }
+
+    .project-hero {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: clamp(24px, 5vw, 56px);
+      align-items: start;
+      margin-bottom: clamp(40px, 6vw, 64px);
+    }
+
+    @media (max-width: 600px) {
+      .project-hero { grid-template-columns: 1fr; }
+    }
+
+    .project-cover-wrap {
+      background: var(--white);
+      border: 0.5px solid var(--faint);
+      border-radius: var(--radius);
+      aspect-ratio: 2 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .project-cover-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-cover-placeholder {
+      width: 62%;
+      aspect-ratio: 2 / 3;
+      border-radius: 2px;
+    }
+
+    .project-info { padding-top: 4px; }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .project-subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      max-width: 400px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 0.5px solid var(--faint);
+      border-radius: 2px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .section-label {
+      font-size: 10px;
+      color: var(--faint);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .spreads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: clamp(32px, 5vw, 48px);
+    }
+
+    @media (max-width: 500px) {
+      .spreads-grid { grid-template-columns: 1fr; }
+      .spread.wide { grid-column: span 1; aspect-ratio: 4/3; }
+    }
+
+    .spread {
+      background: var(--white);
+      border: 0.5px solid var(--faint);
+      border-radius: var(--radius);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .spread img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .spread-placeholder {
+      font-size: 11px;
+      color: var(--faint);
+    }
+
+    .spread.wide { grid-column: span 2; aspect-ratio: 16 / 6; }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: clamp(40px, 6vw, 64px);
+    }
+
+    @media (max-width: 500px) {
+      .details-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .detail {
+      background: var(--white);
+      border: 0.5px solid var(--faint);
+      border-radius: var(--radius);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .detail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-placeholder { font-size: 11px; color: var(--faint); }
+
+    .project-nav {
+      display: flex;
+      justify-content: space-between;
+      border-top: 0.5px solid var(--faint);
+      padding-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .project-nav span { cursor: pointer; transition: color 0.15s; }
+    .project-nav span:hover { color: var(--ink); }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: clamp(40px, 6vw, 72px) var(--page) 80px;
+    }
+
+    .about-inner { max-width: 520px; }
+
+    .about-name {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3.5vw, 30px);
+      font-weight: 400;
+      margin-bottom: clamp(24px, 3vw, 36px);
+      line-height: 1.2;
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+
+    .about-text:last-of-type { margin-bottom: 0; }
+
+    .contact-block {
+      margin-top: clamp(32px, 4vw, 48px);
+      padding-top: clamp(24px, 3vw, 32px);
+      border-top: 0.5px solid var(--faint);
+    }
+
+    .contact-label {
+      font-size: 10px;
+      color: var(--faint);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .contact-link {
+      display: block;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 8px;
+      transition: color 0.15s;
+    }
+
+    .contact-link:hover { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="#" onclick="show('home'); return false;">Имя Фамилия</a>
+  <div class="nav-links">
+    <a href="#" id="nav-work" class="active" onclick="show('home'); return false;">Work</a>
+    <a href="#" id="nav-about" onclick="show('about'); return false;">About</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="home-intro">
+    <p>Книжный дизайн и арт-дирекция — работаю с издательствами над визуальным характером книги.</p>
+  </div>
+  <div class="grid">
+
+    <div class="book-card" onclick="openProject(0)">
+      <div class="book-cover">
+        <!-- замени src на путь к своей обложке: <img src="images/book1-cover.jpg" alt="Название книги"> -->
+        <div class="cover-placeholder" style="background:#D4C9BC;"></div>
+      </div>
+      <div class="book-card-title">Название книги</div>
+      <div class="book-card-meta">Издательство · 2024</div>
+    </div>
+
+    <div class="book-card" onclick="openProject(1)">
+      <div class="book-cover">
+        <div class="cover-placeholder" style="background:#B9C5C2;"></div>
+      </div>
+      <div class="book-card-title">Вторая книга</div>
+      <div class="book-card-meta">Издательство · 2023</div>
+    </div>
+
+    <div class="book-card" onclick="openProject(2)">
+      <div class="book-cover">
+        <div class="cover-placeholder" style="background:#CAC4B5;"></div>
+      </div>
+      <div class="book-card-title">Третья книга</div>
+      <div class="book-card-meta">Издательство · 2023</div>
+    </div>
+
+    <div class="book-card" onclick="openProject(3)">
+      <div class="book-cover">
+        <div class="cover-placeholder" style="background:#C3BEC9;"></div>
+      </div>
+      <div class="book-card-title">Четвёртая книга</div>
+      <div class="book-card-meta">Издательство · 2022</div>
+    </div>
+
+    <div class="book-card" onclick="openProject(4)">
+      <div class="book-cover">
+        <div class="cover-placeholder" style="background:#BFC6BF;"></div>
+      </div>
+      <div class="book-card-title">Пятая книга</div>
+      <div class="book-card-meta">Издательство · 2022</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PROJECT -->
+<div id="project" class="page">
+  <span class="back" onclick="show('home')">← все проекты</span>
+
+  <div class="project-hero">
+    <div class="project-cover-wrap">
+      <!-- <img src="images/book1-cover.jpg" alt=""> -->
+      <div class="project-cover-placeholder" style="background:#D4C9BC;"></div>
+    </div>
+    <div class="project-info">
+      <div class="project-title">Название книги</div>
+      <div class="project-subtitle">Издательство · 2024 · Арт-директор</div>
+      <p class="project-desc">Короткая концепция — что хотелось передать этой книгой, какая задача стояла. Как находилось решение. 2–3 предложения.</p>
+      <div class="tags">
+        <span class="tag">Художественная литература</span>
+        <span class="tag">Типографика</span>
+        <span class="tag">Иллюстрация</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">Развороты</p>
+  <div class="spreads-grid">
+    <div class="spread">
+      <!-- <img src="images/book1-spread1.jpg" alt=""> -->
+      <span class="spread-placeholder">разворот 1</span>
+    </div>
+    <div class="spread">
+      <!-- <img src="images/book1-spread2.jpg" alt=""> -->
+      <span class="spread-placeholder">разворот 2</span>
+    </div>
+    <div class="spread wide">
+      <!-- <img src="images/book1-spread3.jpg" alt=""> -->
+      <span class="spread-placeholder">ключевая полоса</span>
+    </div>
+  </div>
+
+  <p class="section-label">Детали</p>
+  <div class="details-grid">
+    <div class="detail">
+      <!-- <img src="images/book1-detail1.jpg" alt=""> -->
+      <span class="detail-placeholder">шрифт</span>
+    </div>
+    <div class="detail">
+      <!-- <img src="images/book1-detail2.jpg" alt=""> -->
+      <span class="detail-placeholder">переплёт</span>
+    </div>
+    <div class="detail">
+      <!-- <img src="images/book1-detail3.jpg" alt=""> -->
+      <span class="detail-placeholder">иллюстрация</span>
+    </div>
+  </div>
+
+  <div class="project-nav">
+    <span onclick="prevProject()">← предыдущий</span>
+    <span onclick="nextProject()">следующий →</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+  <div class="about-inner">
+    <h1 class="about-name">Имя Фамилия</h1>
+    <p class="about-text">Художественный редактор и книжный дизайнер. Работаю с издательствами над обложками, разворотами и общим визуальным характером книги.</p>
+    <p class="about-text">Интересуют проекты на пересечении типографики и иллюстрации — когда форма книги становится частью её смысла.</p>
+    <div class="contact-block">
+      <p class="contact-label">Контакт</p>
+      <a class="contact-link" href="mailto:name@email.com">name@email.com</a>
+      <a class="contact-link" href="https://instagram.com/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const totalProjects = 5;
+  let currentProject = 0;
+
+  function show(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    if (pageId === 'home') document.getElementById('nav-work').classList.add('active');
+    if (pageId === 'about') document.getElementById('nav-about').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function openProject(index) {
+    currentProject = index;
+    show('project');
+  }
+
+  function nextProject() {
+    currentProject = (currentProject + 1) % totalProjects;
+    window.scrollTo(0, 0);
+  }
+
+  function prevProject() {
+    currentProject = (currentProject - 1 + totalProjects) % totalProjects;
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
