@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Имя Фамилия — Книжный дизайн</title>
+  <title>Портфолио — Книжный дизайн</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --ink: #1a1a18;
       --muted: #888880;
-      --faint: #c8c6c0;
+      --faint: #d0cec8;
       --bg: #f8f7f4;
       --white: #ffffff;
       --serif: 'EB Garamond', Georgia, serif;
       --sans: 'DM Sans', system-ui, sans-serif;
-      --gap: clamp(16px, 3vw, 28px);
       --page: clamp(20px, 6vw, 80px);
-      --radius: 4px;
+      --gap: clamp(14px, 2.5vw, 24px);
+      --radius: 3px;
+      --transition: 0.18s ease;
     }
 
     html { scroll-behavior: smooth; }
@@ -41,7 +42,7 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 28px var(--page) 28px;
+      padding: 24px var(--page);
       border-bottom: 0.5px solid var(--faint);
       position: sticky;
       top: 0;
@@ -51,21 +52,18 @@
 
     .nav-name {
       font-family: var(--serif);
-      font-size: clamp(15px, 2vw, 17px);
+      font-size: clamp(14px, 1.8vw, 16px);
       font-weight: 400;
-      letter-spacing: 0.01em;
+      cursor: pointer;
     }
 
-    .nav-links {
-      display: flex;
-      gap: clamp(20px, 3vw, 36px);
-    }
+    .nav-links { display: flex; gap: clamp(20px, 3vw, 36px); }
 
     .nav-links a {
       font-size: 13px;
       color: var(--muted);
       letter-spacing: 0.02em;
-      transition: color 0.15s;
+      transition: color var(--transition);
     }
 
     .nav-links a:hover,
@@ -75,21 +73,22 @@
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ── HOME ── */
-    #home {
-      padding: clamp(32px, 5vw, 60px) var(--page) 80px;
-    }
+    /* ══════════════════════════════
+       HOME
+    ══════════════════════════════ */
+    #home { padding: clamp(32px, 5vw, 56px) var(--page) 80px; }
 
     .home-intro {
-      margin-bottom: clamp(32px, 5vw, 56px);
+      margin-bottom: clamp(28px, 4vw, 48px);
     }
 
     .home-intro p {
       font-family: var(--serif);
-      font-size: clamp(15px, 2vw, 18px);
+      font-size: clamp(15px, 1.8vw, 17px);
       color: var(--muted);
-      max-width: 480px;
-      line-height: 1.65;
+      max-width: 460px;
+      line-height: 1.7;
+      font-style: italic;
     }
 
     .grid {
@@ -98,17 +97,10 @@
       gap: var(--gap);
     }
 
-    @media (max-width: 720px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    @media (max-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 420px) { .grid { grid-template-columns: 1fr; max-width: 260px; } }
 
-    @media (max-width: 440px) {
-      .grid { grid-template-columns: 1fr; max-width: 280px; }
-    }
-
-    .book-card {
-      cursor: pointer;
-    }
+    .book-card { cursor: pointer; }
 
     .book-cover {
       background: var(--white);
@@ -119,35 +111,31 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      margin-bottom: 11px;
-      transition: border-color 0.2s;
+      margin-bottom: 10px;
+      transition: border-color var(--transition);
     }
 
-    .book-card:hover .book-cover {
-      border-color: var(--muted);
-    }
+    .book-card:hover .book-cover { border-color: var(--muted); }
 
     .book-cover img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
-      transition: opacity 0.2s;
+      transition: opacity var(--transition);
     }
 
-    .book-card:hover .book-cover img { opacity: 0.88; }
+    .book-card:hover .book-cover img { opacity: 0.85; }
 
-    .cover-placeholder {
-      width: 58%;
-      aspect-ratio: 2 / 3;
+    .cover-ph {
+      width: 58%; aspect-ratio: 2/3;
       border-radius: 2px;
     }
 
     .book-card-title {
       font-size: 13px;
-      font-weight: 400;
       color: var(--ink);
       margin-bottom: 2px;
+      line-height: 1.4;
     }
 
     .book-card-meta {
@@ -155,96 +143,113 @@
       color: var(--muted);
     }
 
-    /* ── PROJECT PAGE ── */
-    #project {
-      padding: clamp(24px, 4vw, 48px) var(--page) 80px;
-    }
+    /* ══════════════════════════════
+       PROJECT PAGE
+    ══════════════════════════════ */
+    #project { padding-bottom: 80px; }
 
     .back {
       display: inline-block;
       font-size: 12px;
       color: var(--muted);
-      margin-bottom: 36px;
       cursor: pointer;
       letter-spacing: 0.02em;
-      transition: color 0.15s;
+      transition: color var(--transition);
+      padding: 20px var(--page) 0;
     }
 
     .back:hover { color: var(--ink); }
 
+    /* Hero: image left, info right — sticky on desktop */
     .project-hero {
       display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: clamp(24px, 5vw, 56px);
-      align-items: start;
-      margin-bottom: clamp(40px, 6vw, 64px);
+      grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+      border-bottom: 0.5px solid var(--faint);
+      margin-top: 20px;
     }
 
-    @media (max-width: 600px) {
-      .project-hero { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+      .project-hero { grid-template-columns: 1fr; min-height: auto; }
     }
 
-    .project-cover-wrap {
-      background: var(--white);
-      border: 0.5px solid var(--faint);
-      border-radius: var(--radius);
-      aspect-ratio: 2 / 3;
+    .hero-left {
+      background: #eeece8;
+      border-right: 0.5px solid var(--faint);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      padding: clamp(32px, 5vw, 64px);
+      min-height: 60vw;
     }
 
-    .project-cover-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    @media (max-width: 640px) {
+      .hero-left { min-height: 60vw; border-right: none; border-bottom: 0.5px solid var(--faint); }
     }
 
-    .project-cover-placeholder {
-      width: 62%;
-      aspect-ratio: 2 / 3;
+    .hero-left img {
+      max-width: 52%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    }
+
+    .hero-cover-ph {
+      width: 48%;
+      aspect-ratio: 2/3;
       border-radius: 2px;
     }
 
-    .project-info { padding-top: 4px; }
+    .hero-right {
+      padding: clamp(32px, 4vw, 56px) clamp(24px, 4vw, 52px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 
     .project-title {
       font-family: var(--serif);
-      font-size: clamp(20px, 3vw, 26px);
+      font-size: clamp(20px, 2.8vw, 28px);
       font-weight: 400;
-      line-height: 1.25;
-      margin-bottom: 6px;
-    }
-
-    .project-subtitle {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 24px;
-      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 20px;
     }
 
     .project-desc {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--ink);
-      line-height: 1.8;
-      margin-bottom: 24px;
+      line-height: 1.85;
+      margin-bottom: 32px;
       max-width: 400px;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: auto;
     }
 
-    .tag {
-      font-size: 11px;
-      padding: 4px 10px;
-      border: 0.5px solid var(--faint);
-      border-radius: 2px;
+    .meta-table tr td {
+      padding: 8px 0;
+      font-size: 13px;
+      vertical-align: top;
+      border-top: 0.5px solid var(--faint);
+    }
+
+    .meta-table tr:last-child td { border-bottom: 0.5px solid var(--faint); }
+
+    .meta-table td:first-child {
       color: var(--muted);
-      letter-spacing: 0.02em;
+      width: 44%;
+      padding-right: 12px;
+    }
+
+    .meta-table td:last-child { color: var(--ink); }
+
+    /* Spreads & details */
+    .project-body {
+      padding: clamp(32px, 4vw, 56px) var(--page) 0;
     }
 
     .section-label {
@@ -259,7 +264,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: clamp(32px, 5vw, 48px);
+      margin-bottom: clamp(28px, 4vw, 44px);
     }
 
     @media (max-width: 500px) {
@@ -271,36 +276,25 @@
       background: var(--white);
       border: 0.5px solid var(--faint);
       border-radius: var(--radius);
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
     }
 
-    .spread img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .spread-placeholder {
-      font-size: 11px;
-      color: var(--faint);
-    }
-
-    .spread.wide { grid-column: span 2; aspect-ratio: 16 / 6; }
+    .spread img { width: 100%; height: 100%; object-fit: cover; }
+    .spread-ph { font-size: 11px; color: var(--faint); }
+    .spread.wide { grid-column: span 2; aspect-ratio: 16/6; }
 
     .details-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: clamp(40px, 6vw, 64px);
+      margin-bottom: clamp(40px, 5vw, 64px);
     }
 
-    @media (max-width: 500px) {
-      .details-grid { grid-template-columns: 1fr 1fr; }
-    }
+    @media (max-width: 500px) { .details-grid { grid-template-columns: 1fr 1fr; } }
 
     .detail {
       background: var(--white);
@@ -313,31 +307,26 @@
       overflow: hidden;
     }
 
-    .detail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .detail img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-ph { font-size: 11px; color: var(--faint); }
 
-    .detail-placeholder { font-size: 11px; color: var(--faint); }
-
-    .project-nav {
+    .proj-nav {
       display: flex;
       justify-content: space-between;
       border-top: 0.5px solid var(--faint);
-      padding-top: 20px;
+      padding: 20px var(--page) 0;
       font-size: 12px;
       color: var(--muted);
       letter-spacing: 0.02em;
     }
 
-    .project-nav span { cursor: pointer; transition: color 0.15s; }
-    .project-nav span:hover { color: var(--ink); }
+    .proj-nav span { cursor: pointer; transition: color var(--transition); }
+    .proj-nav span:hover { color: var(--ink); }
 
-    /* ── ABOUT ── */
-    #about {
-      padding: clamp(40px, 6vw, 72px) var(--page) 80px;
-    }
+    /* ══════════════════════════════
+       ABOUT
+    ══════════════════════════════ */
+    #about { padding: clamp(40px, 6vw, 72px) var(--page) 80px; }
 
     .about-inner { max-width: 520px; }
 
@@ -355,8 +344,6 @@
       line-height: 1.85;
       margin-bottom: 14px;
     }
-
-    .about-text:last-of-type { margin-bottom: 0; }
 
     .contact-block {
       margin-top: clamp(32px, 4vw, 48px);
@@ -377,7 +364,7 @@
       font-size: 14px;
       color: var(--ink);
       margin-bottom: 8px;
-      transition: color 0.15s;
+      transition: color var(--transition);
     }
 
     .contact-link:hover { color: var(--muted); }
@@ -386,124 +373,215 @@
 <body>
 
 <nav>
-  <a class="nav-name" href="#" onclick="show('home'); return false;">Имя Фамилия</a>
+  <span class="nav-name" onclick="show('home')">Имя Фамилия</span>
   <div class="nav-links">
-    <a href="#" id="nav-work" class="active" onclick="show('home'); return false;">Work</a>
-    <a href="#" id="nav-about" onclick="show('about'); return false;">About</a>
+    <a id="nav-work" class="active" href="#" onclick="show('home'); return false;">Work</a>
+    <a id="nav-about" href="#" onclick="show('about'); return false;">About</a>
   </div>
 </nav>
 
-<!-- HOME -->
+<!-- ══ HOME ══ -->
 <div id="home" class="page active">
   <div class="home-intro">
-    <p>Книжный дизайн и арт-дирекция — работаю с издательствами над визуальным характером книги.</p>
+    <p>Художественный редактор и книжный дизайнер.</p>
   </div>
   <div class="grid">
 
     <div class="book-card" onclick="openProject(0)">
       <div class="book-cover">
-        <!-- замени src на путь к своей обложке: <img src="images/book1-cover.jpg" alt="Название книги"> -->
-        <div class="cover-placeholder" style="background:#D4C9BC;"></div>
+        <!-- <img src="images/dvorzhak-cover.jpg" alt="Макс Дворжак"> -->
+        <div class="cover-ph" style="background:#C8BBA8;"></div>
       </div>
-      <div class="book-card-title">Название книги</div>
-      <div class="book-card-meta">Издательство · 2024</div>
+      <div class="book-card-title">Макс Дворжак. Серия из трёх книг</div>
+      <div class="book-card-meta">Пальмира / Metamorphoses · 2024</div>
     </div>
 
     <div class="book-card" onclick="openProject(1)">
       <div class="book-cover">
-        <div class="cover-placeholder" style="background:#B9C5C2;"></div>
+        <!-- <img src="images/videoart-cover.jpg" alt="Видеоарт"> -->
+        <div class="cover-ph" style="background:#B8C2C8;"></div>
       </div>
-      <div class="book-card-title">Вторая книга</div>
-      <div class="book-card-meta">Издательство · 2023</div>
+      <div class="book-card-title">Видеоарт. Монтаж зрителя</div>
+      <div class="book-card-meta">Пальмира / HSE School of Design · 2024</div>
     </div>
 
     <div class="book-card" onclick="openProject(2)">
       <div class="book-cover">
-        <div class="cover-placeholder" style="background:#CAC4B5;"></div>
+        <!-- <img src="images/gorod-cover.jpg" alt="Город и тень"> -->
+        <div class="cover-ph" style="background:#C2C0B8;"></div>
       </div>
-      <div class="book-card-title">Третья книга</div>
-      <div class="book-card-meta">Издательство · 2023</div>
+      <div class="book-card-title">Город и тень</div>
+      <div class="book-card-meta">2026</div>
     </div>
 
     <div class="book-card" onclick="openProject(3)">
       <div class="book-cover">
-        <div class="cover-placeholder" style="background:#C3BEC9;"></div>
+        <!-- <img src="images/ghent-cover.jpg" alt="Гентский алтарь"> -->
+        <div class="cover-ph" style="background:#C4BDB5;"></div>
       </div>
-      <div class="book-card-title">Четвёртая книга</div>
-      <div class="book-card-meta">Издательство · 2022</div>
-    </div>
-
-    <div class="book-card" onclick="openProject(4)">
-      <div class="book-cover">
-        <div class="cover-placeholder" style="background:#BFC6BF;"></div>
-      </div>
-      <div class="book-card-title">Пятая книга</div>
-      <div class="book-card-meta">Издательство · 2022</div>
+      <div class="book-card-title">Гентский алтарь</div>
+      <div class="book-card-meta">Пальмира / Metamorphoses · 2025</div>
     </div>
 
   </div>
 </div>
 
-<!-- PROJECT -->
+<!-- ══ PROJECT ══ -->
 <div id="project" class="page">
   <span class="back" onclick="show('home')">← все проекты</span>
 
-  <div class="project-hero">
-    <div class="project-cover-wrap">
-      <!-- <img src="images/book1-cover.jpg" alt=""> -->
-      <div class="project-cover-placeholder" style="background:#D4C9BC;"></div>
+  <!-- PROJECT 0: Дворжак -->
+  <div class="project-content" data-index="0">
+    <div class="project-hero">
+      <div class="hero-left">
+        <!-- <img src="images/dvorzhak-cover.jpg" alt=""> -->
+        <div class="hero-cover-ph" style="background:#C8BBA8;"></div>
+      </div>
+      <div class="hero-right">
+        <h1 class="project-title">Макс Дворжак.<br>Серия из трёх книг</h1>
+        <p class="project-desc">Серия книг австрийского искусствоведа Макса Дворжака — одного из основоположников современной философии и теории искусства. Три тома охватывают его ключевые тексты: от методологического сборника «История искусства как история духа» до двухтомного курса лекций об итальянском Возрождении — от Джотто и Донателло до Микеланджело и Тициана.<br><br>
+        Оформление серии строится на широких полях и плотной работе с иллюстративным материалом — живопись здесь не сопровождает текст, а существует наравне с ним. На обложках — ангелы Рафаэля и Боттичелли: сквозная фигура всей европейской традиции, которую исследует Дворжак, и образ на границе духовного и телесного. Именно это противоречие — диалог духа с видимым миром — он считал главной движущей силой искусства.<br><br>
+        Красный — сквозной цвет всей эпохи Возрождения. В живописи он появляется на одеждах Мадонн и королей, символизируя достоинство и духовную силу. В оформлении серии он работает не как декоративный акцент, а как визуальная рифма с живописью, о которой пишет Дворжак.</p>
+        <table class="meta-table">
+          <tr><td>Год</td><td>2024</td></tr>
+          <tr><td>Автор</td><td>Макс Дворжак</td></tr>
+          <tr><td>Издательство</td><td>Пальмира / Metamorphoses</td></tr>
+          <tr><td>Книг в серии</td><td>3</td></tr>
+          <tr><td>Размер</td><td>170 × 240 мм</td></tr>
+        </table>
+      </div>
     </div>
-    <div class="project-info">
-      <div class="project-title">Название книги</div>
-      <div class="project-subtitle">Издательство · 2024 · Арт-директор</div>
-      <p class="project-desc">Короткая концепция — что хотелось передать этой книгой, какая задача стояла. Как находилось решение. 2–3 предложения.</p>
-      <div class="tags">
-        <span class="tag">Художественная литература</span>
-        <span class="tag">Типографика</span>
-        <span class="tag">Иллюстрация</span>
+    <div class="project-body">
+      <p class="section-label">Развороты</p>
+      <div class="spreads-grid">
+        <div class="spread"><span class="spread-ph">разворот 1</span></div>
+        <div class="spread"><span class="spread-ph">разворот 2</span></div>
+        <div class="spread wide"><span class="spread-ph">ключевая полоса</span></div>
+      </div>
+      <p class="section-label">Детали</p>
+      <div class="details-grid">
+        <div class="detail"><span class="detail-ph">шрифт</span></div>
+        <div class="detail"><span class="detail-ph">переплёт</span></div>
+        <div class="detail"><span class="detail-ph">иллюстрация</span></div>
       </div>
     </div>
   </div>
 
-  <p class="section-label">Развороты</p>
-  <div class="spreads-grid">
-    <div class="spread">
-      <!-- <img src="images/book1-spread1.jpg" alt=""> -->
-      <span class="spread-placeholder">разворот 1</span>
+  <!-- PROJECT 1: Видеоарт -->
+  <div class="project-content" data-index="1">
+    <div class="project-hero">
+      <div class="hero-left">
+        <!-- <img src="images/videoart-cover.jpg" alt=""> -->
+        <div class="hero-cover-ph" style="background:#B8C2C8;"></div>
+      </div>
+      <div class="hero-right">
+        <h1 class="project-title">Видеоарт.<br>Монтаж зрителя</h1>
+        <p class="project-desc">Книга исследователя и куратора Александры Першеевой о видеоарте — искусстве, рождённом на пересечении кинематографа, телевидения и выставочного пространства. В центре — монтаж как инструмент мышления: не просто соединение кадров, но способ организовать восприятие, нарушить линейность, выстроить нестандартные отношения звука и изображения, пространства и времени.<br><br>
+        Оформление книги не иллюстрирует текст — оно само становится его продолжением. Развороты работают по логике монтажа: смена крупного и общего планов, столкновение длительностей, намеренные обрывы. Нумерация страниц выстроена по системе таймкода — формат a:bb:cc отсылает к записи видео и превращает чтение в подобие просмотра с остановками. Символы play и pause на нечётных страницах усиливают эту логику.<br><br>
+        Книга не объясняет видеоарт — она воспроизводит его механику. Смысл возникает не в кадре, а в промежутке: там, где встречаются два образа и сознание читателя достраивает третий.</p>
+        <table class="meta-table">
+          <tr><td>Год</td><td>2024</td></tr>
+          <tr><td>Автор</td><td>Александра Першеева</td></tr>
+          <tr><td>Издательство</td><td>Пальмира / HSE School of Design</td></tr>
+          <tr><td>Размер</td><td>148 × 210 мм</td></tr>
+        </table>
+      </div>
     </div>
-    <div class="spread">
-      <!-- <img src="images/book1-spread2.jpg" alt=""> -->
-      <span class="spread-placeholder">разворот 2</span>
-    </div>
-    <div class="spread wide">
-      <!-- <img src="images/book1-spread3.jpg" alt=""> -->
-      <span class="spread-placeholder">ключевая полоса</span>
+    <div class="project-body">
+      <p class="section-label">Развороты</p>
+      <div class="spreads-grid">
+        <div class="spread"><span class="spread-ph">разворот 1</span></div>
+        <div class="spread"><span class="spread-ph">разворот 2</span></div>
+        <div class="spread wide"><span class="spread-ph">ключевая полоса</span></div>
+      </div>
+      <p class="section-label">Детали</p>
+      <div class="details-grid">
+        <div class="detail"><span class="detail-ph">шрифт</span></div>
+        <div class="detail"><span class="detail-ph">таймкод</span></div>
+        <div class="detail"><span class="detail-ph">иллюстрация</span></div>
+      </div>
     </div>
   </div>
 
-  <p class="section-label">Детали</p>
-  <div class="details-grid">
-    <div class="detail">
-      <!-- <img src="images/book1-detail1.jpg" alt=""> -->
-      <span class="detail-placeholder">шрифт</span>
+  <!-- PROJECT 2: Город и тень -->
+  <div class="project-content" data-index="2">
+    <div class="project-hero">
+      <div class="hero-left">
+        <!-- <img src="images/gorod-cover.jpg" alt=""> -->
+        <div class="hero-cover-ph" style="background:#C2C0B8;"></div>
+      </div>
+      <div class="hero-right">
+        <h1 class="project-title">Город и тень.<br>Образ города в ранней художественной фотографии</h1>
+        <p class="project-desc">Книга историка искусства Екатерины Васильевой исследует, как фотография превратила город в особый визуальный язык — от панорамных снимков XIX века до фрагментарных, серийных образов рубежа эпох. Архитектура здесь не фон, а главный герой: территория молчания, неподвижности, тишины.<br><br>
+        Оформление построено на тех же принципах, что и его предмет. Большие поля и разрывы между блоками — визуальный аналог паузы, которую фотография вносит в восприятие города. Каждый текстовый блок работает как отдельный кадр: сдвинутые блоки и нарушенная сетка воспроизводят фрагментарность и серийность — главные свойства урбанистической фотографии.<br><br>
+        Чёрно-белая шкала без лишних акцентов поддерживает «сумеречный» характер, о котором пишет Васильева. Книга устроена как фотоархив: крупные иллюстрации — главные кадры, маленькие снимки — контрольки, приложение с биографиями — каталог.</p>
+        <table class="meta-table">
+          <tr><td>Год</td><td>2026</td></tr>
+          <tr><td>Автор</td><td>Екатерина Васильева</td></tr>
+          <tr><td>Издательство</td><td>—</td></tr>
+          <tr><td>Размер</td><td>167 × 250 мм</td></tr>
+        </table>
+      </div>
     </div>
-    <div class="detail">
-      <!-- <img src="images/book1-detail2.jpg" alt=""> -->
-      <span class="detail-placeholder">переплёт</span>
-    </div>
-    <div class="detail">
-      <!-- <img src="images/book1-detail3.jpg" alt=""> -->
-      <span class="detail-placeholder">иллюстрация</span>
+    <div class="project-body">
+      <p class="section-label">Развороты</p>
+      <div class="spreads-grid">
+        <div class="spread"><span class="spread-ph">разворот 1</span></div>
+        <div class="spread"><span class="spread-ph">разворот 2</span></div>
+        <div class="spread wide"><span class="spread-ph">ключевая полоса</span></div>
+      </div>
+      <p class="section-label">Детали</p>
+      <div class="details-grid">
+        <div class="detail"><span class="detail-ph">шрифт</span></div>
+        <div class="detail"><span class="detail-ph">вёрстка</span></div>
+        <div class="detail"><span class="detail-ph">фотография</span></div>
+      </div>
     </div>
   </div>
 
-  <div class="project-nav">
-    <span onclick="prevProject()">← предыдущий</span>
-    <span onclick="nextProject()">следующий →</span>
+  <!-- PROJECT 3: Гентский алтарь -->
+  <div class="project-content" data-index="3">
+    <div class="project-hero">
+      <div class="hero-left">
+        <!-- <img src="images/ghent-cover.jpg" alt=""> -->
+        <div class="hero-cover-ph" style="background:#C4BDB5;"></div>
+      </div>
+      <div class="hero-right">
+        <h1 class="project-title">Гентский алтарь</h1>
+        <p class="project-desc">Монография Бориса Успенского посвящена одному из главных произведений европейского искусства — Гентскому алтарю братьев ван Эйк (1432). Книга представляет собой развёрнутый семиотический анализ: каждый элемент алтаря рассматривается как значимый, каждая деталь несёт смысловую нагрузку.<br><br>
+        Главная задача оформления — создать визуальную систему, в которой научный текст, развёрнутый аппарат примечаний и цитат и иллюстративный план существуют без конфликта. Иллюстрации здесь — не сопровождение, а третий язык анализа: подбор репродукций, система указателей и типографика работают как единый инструмент исследования.<br><br>
+        Вытянутый формат книги поддерживает готический характер самого алтаря: его вертикальные створки, устремлённость вверх, архитектурную строгость нидерландской живописи XV века.</p>
+        <table class="meta-table">
+          <tr><td>Год</td><td>2025</td></tr>
+          <tr><td>Автор</td><td>Борис Успенский</td></tr>
+          <tr><td>Издательство</td><td>Пальмира / Metamorphoses</td></tr>
+          <tr><td>Размер</td><td>160 × 240 мм</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="project-body">
+      <p class="section-label">Развороты</p>
+      <div class="spreads-grid">
+        <div class="spread"><span class="spread-ph">разворот 1</span></div>
+        <div class="spread"><span class="spread-ph">разворот 2</span></div>
+        <div class="spread wide"><span class="spread-ph">ключевая полоса</span></div>
+      </div>
+      <p class="section-label">Детали</p>
+      <div class="details-grid">
+        <div class="detail"><span class="detail-ph">шрифт</span></div>
+        <div class="detail"><span class="detail-ph">репродукция</span></div>
+        <div class="detail"><span class="detail-ph">указатель</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-nav">
+    <span id="btn-prev" onclick="prevProject()">← предыдущий</span>
+    <span id="btn-next" onclick="nextProject()">следующий →</span>
   </div>
 </div>
 
-<!-- ABOUT -->
+<!-- ══ ABOUT ══ -->
 <div id="about" class="page">
   <div class="about-inner">
     <h1 class="about-name">Имя Фамилия</h1>
@@ -518,8 +596,8 @@
 </div>
 
 <script>
-  const totalProjects = 5;
-  let currentProject = 0;
+  const total = 4;
+  let current = 0;
 
   function show(pageId) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -531,20 +609,26 @@
   }
 
   function openProject(index) {
-    currentProject = index;
+    current = index;
+    renderProject();
     show('project');
   }
 
+  function renderProject() {
+    document.querySelectorAll('.project-content').forEach(el => {
+      el.style.display = parseInt(el.dataset.index) === current ? 'block' : 'none';
+    });
+    document.getElementById('btn-prev').style.visibility = current === 0 ? 'hidden' : 'visible';
+    document.getElementById('btn-next').style.visibility = current === total - 1 ? 'hidden' : 'visible';
+  }
+
   function nextProject() {
-    currentProject = (currentProject + 1) % totalProjects;
-    window.scrollTo(0, 0);
+    if (current < total - 1) { current++; renderProject(); window.scrollTo(0, 0); }
   }
 
   function prevProject() {
-    currentProject = (currentProject - 1 + totalProjects) % totalProjects;
-    window.scrollTo(0, 0);
+    if (current > 0) { current--; renderProject(); window.scrollTo(0, 0); }
   }
 </script>
-
 </body>
 </html>
